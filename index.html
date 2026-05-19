@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bob's Big Meats - Rob Handoff</title>
+    <style>
+      :root {
+        --ink: #1c1610;
+        --paper: #fdf6e7;
+        --paper-2: #fffaf0;
+        --red: #e0432a;
+        --red-dark: #b22e1a;
+        --blue: #3a82c4;
+        --mustard: #f0b531;
+        --green: #5a8a4a;
+        --line: 3px solid var(--ink);
+        --shadow: 5px 5px 0 var(--ink);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background: var(--blue);
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        background:
+          radial-gradient(rgba(28, 22, 16, 0.18) 2px, transparent 2.5px) 0 0 / 30px 30px,
+          var(--blue);
+        color: var(--ink);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 18px;
+        line-height: 1.55;
+      }
+
+      a {
+        color: inherit;
+        font-weight: 700;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 3px;
+      }
+
+      code,
+      pre {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+
+      code {
+        padding: 0.08rem 0.25rem;
+        border: 1px solid rgba(28, 22, 16, 0.2);
+        border-radius: 5px;
+        background: rgba(253, 246, 231, 0.65);
+        font-size: 0.92em;
+      }
+
+      pre {
+        overflow-x: auto;
+        margin: 0;
+        padding: 18px;
+        border: var(--line);
+        border-radius: 8px;
+        background: #201913;
+        color: #fff6df;
+        font-size: 0.82rem;
+        line-height: 1.45;
+        white-space: pre-wrap;
+      }
+
+      .wrap {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .hero {
+        min-height: 78vh;
+        display: grid;
+        align-items: center;
+        padding: 56px 0 40px;
+      }
+
+      .hero-card {
+        max-width: 920px;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        margin: 0 0 18px;
+        padding: 7px 13px;
+        transform: rotate(-1.5deg);
+        border: var(--line);
+        border-radius: 14px;
+        background: var(--mustard);
+        box-shadow: var(--shadow);
+        font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+        font-size: 0.9rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+        letter-spacing: 0;
+        line-height: 0.98;
+      }
+
+      h1 {
+        max-width: 820px;
+        margin: 0;
+        color: var(--paper);
+        font-size: clamp(4rem, 15vw, 9.8rem);
+        text-shadow:
+          4px 4px 0 var(--ink),
+          7px 7px 0 var(--red);
+        -webkit-text-stroke: 2px var(--ink);
+      }
+
+      h2 {
+        margin: 0 0 18px;
+        font-size: clamp(2.1rem, 6vw, 4rem);
+      }
+
+      h3 {
+        margin: 0 0 10px;
+        font-size: 1.6rem;
+      }
+
+      .lede {
+        max-width: 720px;
+        margin: 24px 0 0;
+        padding: 16px 18px;
+        border: var(--line);
+        border-radius: 8px;
+        background: var(--paper);
+        box-shadow: var(--shadow);
+        font-size: clamp(1.08rem, 2.6vw, 1.35rem);
+      }
+
+      .link-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      .button-link,
+      .toggle button {
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 16px;
+        border: var(--line);
+        border-radius: 8px;
+        background: var(--paper);
+        box-shadow: 4px 4px 0 var(--ink);
+        color: var(--ink);
+        cursor: pointer;
+        font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+        font-size: 0.95rem;
+        letter-spacing: 0.04em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      .button-link.primary,
+      .toggle button[aria-pressed="true"] {
+        background: var(--red);
+        color: var(--paper);
+      }
+
+      section {
+        margin: 0 0 28px;
+        padding: clamp(28px, 6vw, 52px);
+        border-top: var(--line);
+        background: var(--paper);
+      }
+
+      section:nth-of-type(even) {
+        background: var(--paper-2);
+      }
+
+      .section-inner {
+        width: min(1120px, 100%);
+        margin: 0 auto;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .card {
+        padding: 18px;
+        border: var(--line);
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 4px 4px 0 var(--ink);
+      }
+
+      .card strong {
+        display: block;
+        margin-bottom: 6px;
+        font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+        font-size: 1.2rem;
+        letter-spacing: 0.02em;
+      }
+
+      .steps {
+        display: grid;
+        gap: 14px;
+        margin: 16px 0 0;
+        padding: 0;
+        list-style: none;
+        counter-reset: step;
+      }
+
+      .steps li {
+        position: relative;
+        padding: 16px 16px 16px 58px;
+        border: var(--line);
+        border-radius: 8px;
+        background: #fff;
+      }
+
+      .steps li::before {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        width: 30px;
+        height: 30px;
+        display: grid;
+        place-items: center;
+        border: 2px solid var(--ink);
+        border-radius: 50%;
+        background: var(--mustard);
+        content: counter(step);
+        counter-increment: step;
+        font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+      }
+
+      .toggle {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 0 0 16px;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      .callout {
+        margin: 18px 0;
+        padding: 16px 18px;
+        border: var(--line);
+        border-radius: 8px;
+        background: #ffe1db;
+        box-shadow: 4px 4px 0 var(--ink);
+      }
+
+      .callout.good {
+        background: #e9f4df;
+      }
+
+      .two-col {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        gap: 18px;
+        align-items: start;
+      }
+
+      details {
+        border: var(--line);
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 3px 3px 0 var(--ink);
+      }
+
+      details + details {
+        margin-top: 12px;
+      }
+
+      summary {
+        cursor: pointer;
+        padding: 14px 16px;
+        font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+        font-size: 1.2rem;
+      }
+
+      details p {
+        margin: 0;
+        padding: 0 16px 16px;
+      }
+
+      .dont-break {
+        display: grid;
+        gap: 12px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .dont-break li {
+        padding: 14px 16px;
+        border-left: 8px solid var(--red);
+        background: #fff;
+      }
+
+      footer {
+        padding: 28px 0 44px;
+        color: var(--paper);
+      }
+
+      @media (max-width: 820px) {
+        body {
+          font-size: 16px;
+        }
+
+        .hero {
+          min-height: auto;
+          padding-top: 34px;
+        }
+
+        .grid,
+        .two-col {
+          grid-template-columns: 1fr;
+        }
+
+        section {
+          padding: 28px 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero">
+      <div class="wrap hero-card">
+        <p class="eyebrow">Rob handoff</p>
+        <h1>Welcome, Rob. Here's Bob's site.</h1>
+        <p class="lede">
+          This page gets you from "I got Evan's link" to "I made my first change and opened a PR."
+          The important bit: you do not push straight to main right now. You open a pull request,
+          Evan merges it with a merge commit, and the site deploys automatically.
+        </p>
+        <div class="link-row">
+          <a class="button-link primary" href="https://www.bobsbigmeats.com/">Live site</a>
+          <a class="button-link" href="https://github.com/evanahlers/bobs-big-meats">Private GitHub repo</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <div class="section-inner">
+          <h2>What You Are Getting</h2>
+          <div class="grid">
+            <div class="card">
+              <strong>Domain</strong>
+              <p><code>bobsbigmeats.com</code> is registered at Namecheap. DNS is hosted at Cloudflare.</p>
+            </div>
+            <div class="card">
+              <strong>Hosting</strong>
+              <p>Production is on Vercel Hobby. GitHub Actions deploys with the Vercel CLI when Evan-authored merge commits land on <code>main</code>.</p>
+            </div>
+            <div class="card">
+              <strong>Repo</strong>
+              <p>The GitHub repo is private. You are a collaborator, and your normal workflow is branch, pull request, Evan merge commit.</p>
+            </div>
+            <div class="card">
+              <strong>Email</strong>
+              <p>Inbound forwarding for <code>bob@bobsbigmeats.com</code> is live through Cloudflare Email Routing. Outbound sending is a separate setup session.</p>
+            </div>
+            <div class="card">
+              <strong>Content</strong>
+              <p>The site intentionally has placeholders. <code>CONTENT.md</code> labels every slot so you can say exactly what you want changed.</p>
+            </div>
+            <div class="card">
+              <strong>Recovery</strong>
+              <p>If a PR breaks the site, text Evan. He can revert the merge commit and the revert will deploy cleanly.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-inner">
+          <h2>Setup</h2>
+          <p>Use the Mac if you can. The tooling path is smoother, and it matches the Unix-y world that deploy servers expect. Windows works too; it just has a few more places to click.</p>
+
+          <div class="toggle" role="group" aria-label="Setup operating system">
+            <button type="button" data-toggle="setup" data-target="mac" aria-pressed="true">Mac recommended</button>
+            <button type="button" data-toggle="setup" data-target="windows" aria-pressed="false">Windows</button>
+          </div>
+
+          <div id="setup-mac" data-panel="setup">
+            <ol class="steps">
+              <li>Install Apple's command line tools if Git is missing: <code>xcode-select --install</code>.</li>
+              <li>Install Node.js LTS from <a href="https://nodejs.org/en/download">nodejs.org</a>, or use Homebrew if you already have it: <code>brew install node</code>.</li>
+              <li>Install Claude Code: <code>npm install -g @anthropic-ai/claude-code</code>. Anthropic's setup docs are at <a href="https://docs.anthropic.com/en/docs/claude-code/setup">docs.anthropic.com</a>.</li>
+              <li>Accept the GitHub collaborator invite Evan sent you.</li>
+              <li>Clone the repo: <code>git clone https://github.com/evanahlers/bobs-big-meats.git</code>.</li>
+              <li>Move into the project: <code>cd bobs-big-meats</code>.</li>
+              <li>Install dependencies: <code>npm install</code>.</li>
+              <li>Run it locally: <code>npm run dev</code>, then open <code>http://localhost:3000</code>.</li>
+            </ol>
+          </div>
+
+          <div id="setup-windows" data-panel="setup" hidden>
+            <ol class="steps">
+              <li>Install Git for Windows from <a href="https://git-scm.com/download/win">git-scm.com</a>. During setup, the defaults are fine.</li>
+              <li>Install Node.js LTS from <a href="https://nodejs.org/en/download">nodejs.org</a>.</li>
+              <li>Open PowerShell and install Claude Code: <code>npm install -g @anthropic-ai/claude-code</code>.</li>
+              <li>Accept the GitHub collaborator invite Evan sent you.</li>
+              <li>Clone the repo: <code>git clone https://github.com/evanahlers/bobs-big-meats.git</code>.</li>
+              <li>Move into the project: <code>cd bobs-big-meats</code>.</li>
+              <li>Install dependencies: <code>npm install</code>.</li>
+              <li>Run it locally: <code>npm run dev</code>, then open <code>http://localhost:3000</code>.</li>
+            </ol>
+            <div class="callout">
+              If Windows gets weird about line endings, shells, or permissions, do not burn the afternoon. Borrow the Mac and keep moving.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-inner">
+          <h2>AI Tooling</h2>
+          <div class="two-col">
+            <div>
+              <p>Claude and Codex read the same project rules here. The filename changes, but the content is intentionally identical in this repo.</p>
+              <div class="toggle" role="group" aria-label="Agent docs selector">
+                <button type="button" data-toggle="agent" data-target="claude" aria-pressed="true">Claude</button>
+                <button type="button" data-toggle="agent" data-target="codex" aria-pressed="false">Codex</button>
+              </div>
+              <div class="callout good">
+                Show <strong id="agent-file">CLAUDE.md</strong> to <strong id="agent-tool">Claude</strong> before asking for edits.
+                If you use Codex, read <code>AGENTS.md</code> instead. It points at the same guidance.
+              </div>
+            </div>
+            <pre id="agent-doc"># CLAUDE.md / AGENTS.md - Bob's Big Meats
+
+A joke landing page for `bobsbigmeats.com`. **Not a real business.** Bob is the project owner's friend; he works at a hedge fund and smokes BBQ as a hobby. The site exists so Bob can show it to friends for laughs.
+
+Live site: https://www.bobsbigmeats.com/
+
+For current status and decisions, see [README.md](README.md). For the labeled placeholder inventory, see [CONTENT.md](CONTENT.md). For the visual brief, see [design-prompt.md](design-prompt.md). This file is for Claude, Codex, and other agents working in the repo.
+
+## Guardrails
+
+- **Don't make it a real business.** No working order flow, no payments, no checkout, and no real contact form. If a feature only makes sense for an actual business, skip it.
+- **Keep mockup copy neutral until the voice pass.** Tone target is "earnest pitmaster" eventually, but placeholder copy should stay clearly labeled unless Bob or Evan supplies final wording.
+- **"Meat Bob" is intentional.** The about-page nav label is the joke. Do not auto-correct it to "Meet Bob."
+- **The mascot SVGs are final for now.** Do not rename, redraw, delete, or replace `public/mascots/flame.svg`, `public/mascots/smoker.svg`, or `public/mascots/sausage.svg` unless explicitly asked.
+- **Public routes are stable.** Keep `/`, `/menu`, `/order`, `/reviews`, and `/bob` intact; renaming them breaks shared links and the handoff walkthrough.
+- **Use design tokens.** CSS variables on `:root` in `app/globals.css` are the source of truth. Do not hardcode one-off hex values when an existing token fits.
+- **Keep the jingle.** `public/sounds/jingle.mp3` is the Easter egg audio file. Do not rename or remove it unless explicitly asked.
+
+## Tech
+
+- Next.js app, static-friendly and deployed on Vercel Hobby.
+- DNS is hosted at Cloudflare; the domain is registered at Namecheap.
+- Inbound email forwarding for `bob@bobsbigmeats.com` is live through Cloudflare Email Routing. Outbound sendability is deferred.
+- Mobile-first. Keep the cartoon flame, offset smoker, and sausage illustration set reusable across pages.
+
+## Deploy And Contribution Workflow
+
+The repo is private. Production deploys run from GitHub Actions using the Vercel CLI, not Vercel's native Git integration.
+
+Current production path:
+
+1. A commit lands on `main`.
+2. `.github/workflows/deploy.yml` runs.
+3. The workflow installs dependencies, runs `vercel pull`, `vercel build --prod`, and `vercel deploy --prebuilt --prod` using `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID` from GitHub Secrets.
+4. Vercel aliases the deployment to https://www.bobsbigmeats.com/.
+
+Rob's supported workflow is **PR-based, not direct-push**:
+
+1. Rob creates a branch.
+2. Rob opens a pull request.
+3. Evan merges the PR into `main` with a **merge commit**.
+4. The Evan-authored merge commit triggers the GitHub Action and deploys.
+
+**Merge commits only. Never squash, never rebase.** Squash and rebase merges can change commit authorship in ways that re-trigger Vercel Hobby's per-commit-author restriction for private repos. Rob pushing directly to `main` may stall or fail in Vercel; the tested path is branch -> PR -> Evan merge commit -> deploy.
+
+Rob does not currently have Vercel or Cloudflare access. If a bad merge reaches production, Evan should revert the merge commit and push the revert to `main`; the revert deploys through the same GitHub Action path. Do not tell Rob to recover by pushing directly to `main`.
+
+Future exit: once Rob has his own Vercel account connected to this repo or a fork, the PR-as-gatekeeper constraint can go away and Rob can use a simpler direct deploy workflow.
+
+Token rotation note for Evan: `VERCEL_TOKEN` lives only in GitHub Secrets. If it leaks or expires, regenerate it in Vercel, update the repository secret, and rerun the deploy workflow.
+
+## Aesthetic Guardrails
+
+- No SaaS gradient hero backgrounds, no purple-to-cyan glow, no AI studio-lighting look, and no generic template feel.
+- The flame, sausage, and smoker should feel hand-drawn / illustrated, not like stock vector art.
+- Preserve the loud BBQ-poster personality: cream paper, black ink, red accent, sticker shapes, playful rotations, and chunky type.</pre>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-inner">
+          <h2>First Edit</h2>
+          <p>This is a low-stakes walkthrough: change one visible menu tag, open a PR, and let Evan merge it. You will see the full loop without touching anything fragile.</p>
+
+          <div class="callout">
+            The workflow is PR-based. Do not push directly to <code>main</code>. Evan is the merge gatekeeper for now because Vercel Hobby rejects or stalls on some non-owner private-repo commits.
+          </div>
+
+          <ol class="steps">
+            <li>Create a branch: <code>git checkout -b rob-menu-tag-test</code>.</li>
+            <li>Open <code>app/menu/page.tsx</code>.</li>
+            <li>Find the <code>menu-brisket-tag</code> slot from <code>CONTENT.md</code>: it currently says <code>tag: "King"</code>.</li>
+            <li>Change it to another short label, for example <code>tag: "Crown"</code>.</li>
+            <li>Run <code>npm run dev</code> and check <code>http://localhost:3000/menu</code>.</li>
+            <li>Commit it: <code>git add app/menu/page.tsx &amp;&amp; git commit -m "test: update brisket menu tag"</code>.</li>
+            <li>Push the branch: <code>git push -u origin rob-menu-tag-test</code>.</li>
+            <li>Open the branch on GitHub and click <strong>Compare &amp; pull request</strong>. Put Evan as reviewer.</li>
+            <li>Evan reviews and merges with <strong>Create a merge commit</strong>. Not squash. Not rebase.</li>
+            <li>GitHub Actions deploys automatically. The live site usually updates shortly after the merge.</li>
+          </ol>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-inner">
+          <h2>Things We Could Do Together</h2>
+          <details open>
+            <summary>Real Photos</summary>
+            <p>Replace the labeled home photo slots and Bob portrait placeholder with real BBQ photos. Start with <code>image-01</code> through <code>image-09</code> in <code>CONTENT.md</code>. Want help with this? Text me.</p>
+          </details>
+          <details>
+            <summary>Voice And Copy Polish</summary>
+            <p>Turn the neutral placeholders into Bob's actual voice: earnest pitmaster, very serious about smoke, never pretending this is a real restaurant. Want help with this? Text me.</p>
+          </details>
+          <details>
+            <summary>New Mascots Or Animation</summary>
+            <p>The current flame, smoker, and sausage are locked for now. Later we can do a lookbook pass and replace them intentionally instead of poking random SVGs. Want help with this? Text me.</p>
+          </details>
+          <details>
+            <summary>Outbound Email</summary>
+            <p>Inbound email forwarding is live. Sending as <code>bob@bobsbigmeats.com</code> through Gmail plus an SMTP relay is a separate setup session this week. Want help with this? Text me.</p>
+          </details>
+          <details>
+            <summary>CMS At /admin</summary>
+            <p>If direct repo edits feel annoying, we can add Decap CMS later so content changes happen through forms. Not needed for the first handoff. Want help with this? Text me.</p>
+          </details>
+          <details>
+            <summary>Rob-Owned Accounts</summary>
+            <p>The long-term clean version is Rob owning the Vercel project and related accounts. Once that happens, this merge-gatekeeper workflow can relax. Want help with this? Text me.</p>
+          </details>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-inner">
+          <h2>What Not To Break</h2>
+          <ul class="dont-break">
+            <li><strong>Do not make it a real business.</strong> No checkout, payment flow, or real order form.</li>
+            <li><strong>Do not rename routes.</strong> Keep <code>/</code>, <code>/menu</code>, <code>/order</code>, <code>/reviews</code>, and <code>/bob</code>.</li>
+            <li><strong>Do not "fix" Meat Bob.</strong> The nav label is supposed to say <code>Meat Bob</code>.</li>
+            <li><strong>Do not touch mascot SVGs casually.</strong> The files in <code>public/mascots/</code> are the current art set.</li>
+            <li><strong>Do not hardcode random colors.</strong> Use the CSS variables in <code>app/globals.css</code>.</li>
+            <li><strong>Do not remove the jingle.</strong> <code>public/sounds/jingle.mp3</code> is an Easter egg.</li>
+            <li><strong>Do not push directly to main.</strong> Open a PR and let Evan merge with a merge commit.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-inner">
+          <h2>If Something Breaks</h2>
+          <p>Text Evan. Since Evan is the merge gatekeeper, the clean recovery is for Evan to revert the merge commit and push the revert to <code>main</code>. The revert goes through the same GitHub Actions + Vercel CLI deploy path.</p>
+          <div class="callout">
+            Do not try to hotfix production by pushing directly to <code>main</code>. That can hit the same Vercel commit-author issue. Open another PR or text Evan.
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <p>
+          <a href="https://www.bobsbigmeats.com/">Live site</a> /
+          <a href="https://github.com/evanahlers/bobs-big-meats">GitHub repo</a> /
+          Text Evan when you are ready to make the first PR.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      const groups = document.querySelectorAll("[data-toggle]");
+
+      groups.forEach((button) => {
+        button.addEventListener("click", () => {
+          const group = button.dataset.toggle;
+          const target = button.dataset.target;
+
+          document.querySelectorAll(`[data-toggle="${group}"]`).forEach((groupButton) => {
+            groupButton.setAttribute("aria-pressed", String(groupButton === button));
+          });
+
+          document.querySelectorAll(`[data-panel="${group}"]`).forEach((panel) => {
+            panel.hidden = panel.id !== `${group}-${target}`;
+          });
+
+          if (group === "agent") {
+            const isCodex = target === "codex";
+            document.getElementById("agent-file").textContent = isCodex ? "AGENTS.md" : "CLAUDE.md";
+            document.getElementById("agent-tool").textContent = isCodex ? "Codex" : "Claude";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
