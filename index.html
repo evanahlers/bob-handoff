@@ -346,9 +346,9 @@
         <p class="eyebrow">Rob handoff</p>
         <h1>Welcome, Rob. Here's Bob's site.</h1>
         <p class="lede">
-          This page gets you from "I got Evan's link" to "I made my first change and opened a PR."
-          The important bit: you do not push straight to main right now. You open a pull request,
-          Evan merges it with a merge commit, and the site deploys automatically.
+          You do not need to do the technical setup by hand. Give this page to Claude or Codex,
+          ask it to set up Bob's Big Meats for you, and let the agent handle the terminal work.
+          When a change should go live, the agent opens a pull request and Evan merges it.
         </p>
         <div class="link-row">
           <a class="button-link primary" href="https://www.bobsbigmeats.com/">Live site</a>
@@ -358,6 +358,41 @@
     </header>
 
     <main>
+      <section>
+        <div class="section-inner">
+          <h2>Start Here</h2>
+          <div class="two-col">
+            <div>
+              <p>
+                The easiest path is to open Claude or Codex and paste the prompt below. The agent
+                can clone the repo, install dependencies, run the local site, make edits, and prepare
+                a pull request. You can stay in plain English.
+              </p>
+              <div class="callout good">
+                The GitHub repo is still useful because it is how changes get back to the live site.
+                A zip file is fine for looking around or making a local copy, but a PR is the clean
+                path for anything Evan should merge and deploy.
+              </div>
+              <div class="link-row">
+                <a class="button-link" href="https://github.com/evanahlers/bobs-big-meats/archive/refs/heads/main.zip">Download repo ZIP</a>
+                <a class="button-link" href="https://github.com/evanahlers/bobs-big-meats">Open private repo</a>
+              </div>
+            </div>
+            <pre>Set up Bob's Big Meats for me.
+
+Use this handoff page as the instructions:
+https://evanahlers.github.io/bob-handoff/
+
+The private repo is:
+https://github.com/evanahlers/bobs-big-meats
+
+Please clone the repo if GitHub access works. If cloning is annoying, help me download the ZIP and work from that. Install what is needed, run the site locally, and explain what you are doing in plain English.
+
+If I ask for a change that should go live, create a branch and open a pull request. Do not push directly to main. Evan has to merge with a merge commit for deploys to work.</pre>
+          </div>
+        </div>
+      </section>
+
       <section>
         <div class="section-inner">
           <h2>What You Are Getting</h2>
@@ -372,7 +407,7 @@
             </div>
             <div class="card">
               <strong>Repo</strong>
-              <p>The GitHub repo is private. You are a collaborator, and your normal workflow is branch, pull request, Evan merge commit.</p>
+              <p>The GitHub repo is private. Claude can clone it once you accept the invite. The normal live-update workflow is branch, pull request, Evan merge commit.</p>
             </div>
             <div class="card">
               <strong>Email</strong>
@@ -392,8 +427,8 @@
 
       <section>
         <div class="section-inner">
-          <h2>Setup</h2>
-          <p>Use the Mac if you can. The tooling path is smoother, and it matches the Unix-y world that deploy servers expect. Windows works too; it just has a few more places to click.</p>
+          <h2>Agent Setup</h2>
+          <p>Use the Mac if you can, but Windows works. The point is not for you to memorize these commands; the point is to give Claude a clear starting point and let it drive.</p>
 
           <div class="toggle" role="group" aria-label="Setup operating system">
             <button type="button" data-toggle="setup" data-target="mac" aria-pressed="true">Mac recommended</button>
@@ -402,30 +437,28 @@
 
           <div id="setup-mac" data-panel="setup">
             <ol class="steps">
-              <li>Install Apple's command line tools if Git is missing: <code>xcode-select --install</code>.</li>
-              <li>Install Node.js LTS from <a href="https://nodejs.org/en/download">nodejs.org</a>, or use Homebrew if you already have it: <code>brew install node</code>.</li>
-              <li>Install Claude Code: <code>npm install -g @anthropic-ai/claude-code</code>. Anthropic's setup docs are at <a href="https://docs.anthropic.com/en/docs/claude-code/setup">docs.anthropic.com</a>.</li>
-              <li>Accept the GitHub collaborator invite Evan sent you.</li>
-              <li>Clone the repo: <code>git clone https://github.com/evanahlers/bobs-big-meats.git</code>.</li>
-              <li>Move into the project: <code>cd bobs-big-meats</code>.</li>
-              <li>Install dependencies: <code>npm install</code>.</li>
-              <li>Run it locally: <code>npm run dev</code>, then open <code>http://localhost:3000</code>.</li>
+              <li>Open Claude Code or Codex on the Mac.</li>
+              <li>Paste the Start Here prompt from above.</li>
+              <li>Accept the GitHub collaborator invite Evan sent you when the agent asks for repo access.</li>
+              <li>Let the agent install Git or Node.js LTS if either is missing.</li>
+              <li>Ask the agent to run the site locally and open <code>http://localhost:3000</code>.</li>
+              <li>When you want a change, describe it normally: "replace the brisket blurb," "add these photos," "try this headline."</li>
+              <li>If the change should go live, tell the agent: "open a pull request for Evan."</li>
             </ol>
           </div>
 
           <div id="setup-windows" data-panel="setup" hidden>
             <ol class="steps">
-              <li>Install Git for Windows from <a href="https://git-scm.com/download/win">git-scm.com</a>. During setup, the defaults are fine.</li>
-              <li>Install Node.js LTS from <a href="https://nodejs.org/en/download">nodejs.org</a>.</li>
-              <li>Open PowerShell and install Claude Code: <code>npm install -g @anthropic-ai/claude-code</code>.</li>
-              <li>Accept the GitHub collaborator invite Evan sent you.</li>
-              <li>Clone the repo: <code>git clone https://github.com/evanahlers/bobs-big-meats.git</code>.</li>
-              <li>Move into the project: <code>cd bobs-big-meats</code>.</li>
-              <li>Install dependencies: <code>npm install</code>.</li>
-              <li>Run it locally: <code>npm run dev</code>, then open <code>http://localhost:3000</code>.</li>
+              <li>Open Claude Code or Codex on Windows.</li>
+              <li>Paste the Start Here prompt from above.</li>
+              <li>Accept the GitHub collaborator invite Evan sent you when the agent asks for repo access.</li>
+              <li>Let the agent install Git for Windows or Node.js LTS if either is missing.</li>
+              <li>If cloning is annoying, ask the agent to use the repo ZIP link instead.</li>
+              <li>Ask the agent to run the site locally and open <code>http://localhost:3000</code>.</li>
+              <li>If the change should go live, tell the agent: "open a pull request for Evan."</li>
             </ol>
             <div class="callout">
-              If Windows gets weird about line endings, shells, or permissions, do not burn the afternoon. Borrow the Mac and keep moving.
+              If Windows gets weird about line endings, shells, or permissions, do not burn the afternoon. Ask Claude to switch to the ZIP path or borrow the Mac.
             </div>
           </div>
         </div>
@@ -448,7 +481,7 @@
             </div>
             <pre id="agent-doc"># CLAUDE.md / AGENTS.md - Bob's Big Meats
 
-A joke landing page for `bobsbigmeats.com`. **Not a real business.** Bob is the project owner's friend; he works at a hedge fund and smokes BBQ as a hobby. The site exists so Bob can show it to friends for laughs.
+A hobby BBQ landing page for `bobsbigmeats.com`. Bob is the project owner's friend; he works at a hedge fund and smokes BBQ as a serious hobby. The site gives him a polished place to send people who ask about Bob's Big Meats.
 
 Live site: https://www.bobsbigmeats.com/
 
@@ -456,9 +489,9 @@ For current status and decisions, see [README.md](README.md). For the labeled pl
 
 ## Guardrails
 
-- **Don't make it a real business.** No working order flow, no payments, no checkout, and no real contact form. If a feature only makes sense for an actual business, skip it.
+- **Keep it lightweight and hobby-focused.** The site can explain Bob's BBQ, show photos, and describe the informal pickup flow, but do not add checkout, payments, lead forms, or sales funnels unless Bob or Evan explicitly asks.
 - **Keep mockup copy neutral until the voice pass.** Tone target is "earnest pitmaster" eventually, but placeholder copy should stay clearly labeled unless Bob or Evan supplies final wording.
-- **"Meat Bob" is intentional.** The about-page nav label is the joke. Do not auto-correct it to "Meet Bob."
+- **"Meat Bob" is intentional.** The about-page nav label is wordplay. Do not auto-correct it to "Meet Bob."
 - **The mascot SVGs are final for now.** Do not rename, redraw, delete, or replace `public/mascots/flame.svg`, `public/mascots/smoker.svg`, or `public/mascots/sausage.svg` unless explicitly asked.
 - **Public routes are stable.** Keep `/`, `/menu`, `/order`, `/reviews`, and `/bob` intact; renaming them breaks shared links and the handoff walkthrough.
 - **Use design tokens.** CSS variables on `:root` in `app/globals.css` are the source of truth. Do not hardcode one-off hex values when an existing token fits.
@@ -489,13 +522,27 @@ Rob's supported workflow is **PR-based, not direct-push**:
 3. Evan merges the PR into `main` with a **merge commit**.
 4. The Evan-authored merge commit triggers the GitHub Action and deploys.
 
-**Merge commits only. Never squash, never rebase.** Squash and rebase merges can change commit authorship in ways that re-trigger Vercel Hobby's per-commit-author restriction for private repos. Rob pushing directly to `main` may stall or fail in Vercel; the tested path is branch -> PR -> Evan merge commit -> deploy.
+**Merge commits only. Never squash, never rebase.** Squash and rebase merges can change commit authorship in ways that re-trigger Vercel Hobby's per-commit-author restriction for private repos. Rob pushing directly to `main` may stall or fail in Vercel; the tested path is branch -&gt; PR -&gt; Evan merge commit -&gt; deploy.
 
 Rob does not currently have Vercel or Cloudflare access. If a bad merge reaches production, Evan should revert the merge commit and push the revert to `main`; the revert deploys through the same GitHub Action path. Do not tell Rob to recover by pushing directly to `main`.
 
 Future exit: once Rob has his own Vercel account connected to this repo or a fork, the PR-as-gatekeeper constraint can go away and Rob can use a simpler direct deploy workflow.
 
 Token rotation note for Evan: `VERCEL_TOKEN` lives only in GitHub Secrets. If it leaks or expires, regenerate it in Vercel, update the repository secret, and rerun the deploy workflow.
+
+## Rob Handoff Notes
+
+- Rob does not need to run setup steps manually. The intended path is that he gives the handoff page and repo URL to Claude/Codex and lets the agent clone, install, run, edit, and open PRs.
+- A repo ZIP is fine for local exploration or for an agent to inspect files, but live changes still need to get back through GitHub as a pull request so Evan can merge with a merge commit.
+
+## Future Options
+
+- Replace placeholder image slots with real BBQ photos.
+- Do a voice/copy pass once Bob has final wording.
+- Explore new mascot art or animation intentionally, rather than making one-off SVG edits.
+- Finish outbound sending for `bob@bobsbigmeats.com`.
+- Add Decap CMS at `/admin` if Bob wants a form-based editor.
+- Move Vercel/GitHub/Cloudflare ownership toward Rob over time.
 
 ## Aesthetic Guardrails
 
@@ -508,22 +555,19 @@ Token rotation note for Evan: `VERCEL_TOKEN` lives only in GitHub Secrets. If it
 
       <section>
         <div class="section-inner">
-          <h2>First Edit</h2>
-          <p>This is a low-stakes walkthrough: change one visible menu tag, open a PR, and let Evan merge it. You will see the full loop without touching anything fragile.</p>
+          <h2>First Change</h2>
+          <p>This is a low-stakes agent task: ask Claude to change one visible menu tag, run the site locally, and open a PR for Evan. You do not need to type the commands yourself.</p>
 
           <div class="callout">
             The workflow is PR-based. Do not push directly to <code>main</code>. Evan is the merge gatekeeper for now because Vercel Hobby rejects or stalls on some non-owner private-repo commits.
           </div>
 
           <ol class="steps">
-            <li>Create a branch: <code>git checkout -b rob-menu-tag-test</code>.</li>
-            <li>Open <code>app/menu/page.tsx</code>.</li>
-            <li>Find the <code>menu-brisket-tag</code> slot from <code>CONTENT.md</code>: it currently says <code>tag: "King"</code>.</li>
-            <li>Change it to another short label, for example <code>tag: "Crown"</code>.</li>
-            <li>Run <code>npm run dev</code> and check <code>http://localhost:3000/menu</code>.</li>
-            <li>Commit it: <code>git add app/menu/page.tsx &amp;&amp; git commit -m "test: update brisket menu tag"</code>.</li>
-            <li>Push the branch: <code>git push -u origin rob-menu-tag-test</code>.</li>
-            <li>Open the branch on GitHub and click <strong>Compare &amp; pull request</strong>. Put Evan as reviewer.</li>
+            <li>Tell Claude: "Make a small test change to the brisket menu tag and open a PR for Evan."</li>
+            <li>Claude should use <code>CONTENT.md</code> to find <code>menu-brisket-tag</code> in <code>app/menu/page.tsx</code>.</li>
+            <li>Claude can change <code>tag: "King"</code> to a short test label, for example <code>tag: "Crown"</code>.</li>
+            <li>Claude should run the site locally and show you <code>http://localhost:3000/menu</code>.</li>
+            <li>If it looks right, Claude creates a branch, commits the change, pushes the branch, and opens a pull request.</li>
             <li>Evan reviews and merges with <strong>Create a merge commit</strong>. Not squash. Not rebase.</li>
             <li>GitHub Actions deploys automatically. The live site usually updates shortly after the merge.</li>
           </ol>
@@ -532,30 +576,30 @@ Token rotation note for Evan: `VERCEL_TOKEN` lives only in GitHub Secrets. If it
 
       <section>
         <div class="section-inner">
-          <h2>Things We Could Do Together</h2>
+          <h2>Future Options</h2>
           <details open>
             <summary>Real Photos</summary>
-            <p>Replace the labeled home photo slots and Bob portrait placeholder with real BBQ photos. Start with <code>image-01</code> through <code>image-09</code> in <code>CONTENT.md</code>. Want help with this? Text me.</p>
+            <p>Replace the labeled home photo slots and Bob portrait placeholder with real BBQ photos. Start with <code>image-01</code> through <code>image-09</code> in <code>CONTENT.md</code>. Evan can help sort, crop, and place them.</p>
           </details>
           <details>
             <summary>Voice And Copy Polish</summary>
-            <p>Turn the neutral placeholders into Bob's actual voice: earnest pitmaster, very serious about smoke, never pretending this is a real restaurant. Want help with this? Text me.</p>
+            <p>Turn the neutral placeholders into Bob's actual voice: earnest pitmaster, serious about smoke, and relaxed about the fact that this is a hobby landing page rather than a conversion machine. Evan can help shape the voice.</p>
           </details>
           <details>
             <summary>New Mascots Or Animation</summary>
-            <p>The current flame, smoker, and sausage are locked for now. Later we can do a lookbook pass and replace them intentionally instead of poking random SVGs. Want help with this? Text me.</p>
+            <p>The current flame, smoker, and sausage are locked for now. Later Evan can help do a lookbook pass and replace them intentionally instead of poking random SVGs.</p>
           </details>
           <details>
             <summary>Outbound Email</summary>
-            <p>Inbound email forwarding is live. Sending as <code>bob@bobsbigmeats.com</code> through Gmail plus an SMTP relay is a separate setup session this week. Want help with this? Text me.</p>
+            <p>Inbound email forwarding is live. Sending as <code>bob@bobsbigmeats.com</code> through Gmail plus an SMTP relay is a separate setup session Evan can help with.</p>
           </details>
           <details>
             <summary>CMS At /admin</summary>
-            <p>If direct repo edits feel annoying, we can add Decap CMS later so content changes happen through forms. Not needed for the first handoff. Want help with this? Text me.</p>
+            <p>If repo or agent edits feel annoying, Evan can help add Decap CMS later so content changes happen through forms. Not needed for the first handoff.</p>
           </details>
           <details>
             <summary>Rob-Owned Accounts</summary>
-            <p>The long-term clean version is Rob owning the Vercel project and related accounts. Once that happens, this merge-gatekeeper workflow can relax. Want help with this? Text me.</p>
+            <p>The long-term clean version is Rob owning the Vercel project and related accounts. Once that happens, this merge-gatekeeper workflow can relax.</p>
           </details>
         </div>
       </section>
@@ -564,7 +608,7 @@ Token rotation note for Evan: `VERCEL_TOKEN` lives only in GitHub Secrets. If it
         <div class="section-inner">
           <h2>What Not To Break</h2>
           <ul class="dont-break">
-            <li><strong>Do not make it a real business.</strong> No checkout, payment flow, or real order form.</li>
+            <li><strong>Keep it hobby-focused.</strong> Explain the BBQ and pickup vibe without adding checkout, payment flow, or lead forms.</li>
             <li><strong>Do not rename routes.</strong> Keep <code>/</code>, <code>/menu</code>, <code>/order</code>, <code>/reviews</code>, and <code>/bob</code>.</li>
             <li><strong>Do not "fix" Meat Bob.</strong> The nav label is supposed to say <code>Meat Bob</code>.</li>
             <li><strong>Do not touch mascot SVGs casually.</strong> The files in <code>public/mascots/</code> are the current art set.</li>
